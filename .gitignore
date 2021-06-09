@@ -38,3 +38,5 @@ out/
 
 **/out/
 **/build/
+
+/init/

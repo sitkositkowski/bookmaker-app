@@ -16,6 +16,6 @@ public class MatchList {
 
     private String count;
     private Competition competition;
-    private List<MatchData> matchData;
+    private List<MatchData> matches;
 
 }

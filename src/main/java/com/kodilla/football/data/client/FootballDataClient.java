@@ -52,7 +52,6 @@ public class FootballDataClient {
             headers.add("X-Auth-Token", footballDataApiConfig.getFootballDataApiToken());
             HttpEntity<?> entity = new HttpEntity<Object>(headers);
             MatchList matches = restTemplate.exchange(url, HttpMethod.GET, entity, MatchList.class).getBody();
-            System.out.println(matches);
             return matches;
         } catch (RestClientException e) {
             LOGGER.error(e.getMessage(), e);
@@ -66,7 +65,7 @@ public class FootballDataClient {
     }
 
     public URI buildUrlMatch(String id) {
-        return UriComponentsBuilder.fromHttpUrl(footballDataApiConfig.getFootballDataApiEndpoint() + "/competitions/EC/matches?status=SCHEDULED")
+        return UriComponentsBuilder.fromHttpUrl(footballDataApiConfig.getFootballDataApiEndpoint() + "/competitions/EC/matches")
                 .build().encode().toUri();
     }
 

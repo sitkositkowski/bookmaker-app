@@ -18,6 +18,7 @@ public interface MatchMapper {
                 .status(matchData.getStatus())
                 .homeTeam(matchData.getHomeTeam().getName())
                 .awayTeam(matchData.getAwayTeam().getName())
+                .winner(matchData.getScore().getWinner())
                 .duration(matchData.getScore().getDuration())
                 .homeTeamScore(matchData.getScore().getFullTime().getHomeTeam())
                 .awayTeamScore(matchData.getScore().getFullTime().getAwayTeam())

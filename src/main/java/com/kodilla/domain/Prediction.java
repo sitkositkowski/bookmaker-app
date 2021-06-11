@@ -26,7 +26,9 @@ public class Prediction {
     private Long id;
 
     @NotNull
-    private Long matchId;
+    @OneToOne
+    @JoinColumn(name = "match_id")
+    private Match match;
 
     @NotNull
     @ManyToOne

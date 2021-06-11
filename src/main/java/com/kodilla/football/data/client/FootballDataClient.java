@@ -29,13 +29,13 @@ public class FootballDataClient {
     public Competition getFootballApiTable() {
 
         URI url = buildUrlCompetition("2018");
-        System.out.println(url);
+        //System.out.println(url);
         try {
             MultiValueMap<String, String> headers = new LinkedMultiValueMap<String, String>();
             headers.add("X-Auth-Token", footballDataApiConfig.getFootballDataApiToken());
             HttpEntity<?> entity = new HttpEntity<Object>(headers);
             Competition competition = restTemplate.exchange(url, HttpMethod.GET, entity, Competition.class).getBody();
-            System.out.println(competition);
+            //System.out.println(competition);
             return competition;
         } catch (RestClientException e) {
             LOGGER.error(e.getMessage(), e);
@@ -46,7 +46,7 @@ public class FootballDataClient {
     public MatchList getMatchFromApi(String id) {
 
         URI url = buildUrlMatch("23");
-        System.out.println(url);
+        //System.out.println(url);
         try {
             MultiValueMap<String, String> headers = new LinkedMultiValueMap<String, String>();
             headers.add("X-Auth-Token", footballDataApiConfig.getFootballDataApiToken());

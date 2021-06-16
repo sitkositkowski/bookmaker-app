@@ -9,6 +9,17 @@ import lombok.NoArgsConstructor;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 
+/*
+@NamedNativeQuery(
+        name = "Prediction.getRanking",
+        query = "SELECT p.user_id, u.name, p.points FROM predictions AS p JOIN users AS u WHERE p.user_id=u.id",
+        resultClass = RankingRecord.class
+)
+*/
+
+
+
+
 @Data
 @Entity
 @Table(name = "predictions")
@@ -18,17 +29,20 @@ import javax.validation.constraints.NotNull;
 public class Prediction {
 
     @NotNull
-    @Id
-    @GeneratedValue
-    private Long id;
+    @EmbeddedId
+    //@GeneratedValue
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private PredictionKey id;
 
     @NotNull
-    @OneToOne
+    @ManyToOne
+    @MapsId("matchId")
     @JoinColumn(name = "match_id")
     private Match match;
 
     @NotNull
-    @ManyToOne
+    @ManyToOne//(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @MapsId("userId")
     @JoinColumn(name = "user_id")
     private User user;
 

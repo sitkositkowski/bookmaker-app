@@ -30,8 +30,8 @@ public class PredictionMapperTestSuite {
     @Test
     void testMapFromDto() {
         //Given
+        // Id do testów
         PredictionDto predictionDto = PredictionDto.builder()
-                .id(1L)
                 .matchId(1L)
                 .userId(1L)
                 .homeTeamScore(0)
@@ -42,7 +42,7 @@ public class PredictionMapperTestSuite {
         //When
         Prediction prediction = predictionMapper.mapFromDto(predictionDto);
         //Then
-        assertEquals(1L, prediction.getId());
+        //assertEquals(1L, prediction.getId());
         assertEquals(0, prediction.getHomeTeamScore());
         assertEquals(0, prediction.getAwayTeamScore());
         Assertions.assertEquals(Winner.DRAW, prediction.getWinner());
@@ -52,8 +52,10 @@ public class PredictionMapperTestSuite {
 
     @Test
     void testMapToDto() {
+
+        // Id do testów
         Prediction prediction = Prediction.builder()
-                .id(1L)
+                //.id(1L)
                 .match(Match.builder().id(1L).build())
                 .user(User.builder().id(1L).build())
                 .homeTeamScore(0)
@@ -64,7 +66,7 @@ public class PredictionMapperTestSuite {
         //When
         PredictionDto predictionDto = predictionMapper.mapToDto(prediction);
         //Then
-        assertEquals(1L, predictionDto.getId());
+       // assertEquals(1L, predictionDto.getId());
         assertEquals(1L, predictionDto.getMatchId());
         assertEquals(1L, predictionDto.getUserId());
         assertEquals(0, predictionDto.getHomeTeamScore());

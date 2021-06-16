@@ -8,6 +8,8 @@ import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
 
 @CrossOrigin(origins = "*")
 @RestController
@@ -23,24 +25,20 @@ public class MatchController {
         return matchService.getMatches();
     }
 
+    @GetMapping("/{id}")
+    public Optional<MatchDto> getMatch(@PathVariable Long id) {return matchService.getMatch(id);}
+
     @GetMapping("/api")
     public List<MatchDto> getMatchesFromApi() {
         List<MatchDto> matches = matchService.getMatchesFromApi();
-        /*
-        List<MatchDto> oldMatches = matches.stream()
-                .filter(match -> matchRepository.findById(match.getId()).isPresent())
-                .collect(Collectors.toList());
-        List<MatchDto> newMatches = matches.stream()
-                .filter(match -> matchRepository.findById(match.getId()).isEmpty())
-                .collect(Collectors.toList());
-
-         */
         return matches;
     }
 
     @PostMapping("/api")
-    public MatchDto createMatchesFromApi() {
+    public List<MatchDto> createMatchesFromApi() {
         List<MatchDto> matches = matchService.getMatchesFromApi();
-        return matchService.saveMatch(matches.get(0));
+        return matches.stream()
+                .map(matchService::saveMatch)
+                .collect(Collectors.toList());
     }
 }

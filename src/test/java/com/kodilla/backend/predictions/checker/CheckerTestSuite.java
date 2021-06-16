@@ -36,7 +36,7 @@ public class CheckerTestSuite {
                 .build();
 
         PredictionDto predictionDto = PredictionDto.builder()
-                .id(1L)
+                //.id(1L)
                 .matchId(1L)
                 .userId(1L)
                 .homeTeamScore(1)
@@ -66,7 +66,7 @@ public class CheckerTestSuite {
                 .build();
 
         PredictionDto predictionDto = PredictionDto.builder()
-                .id(1L)
+                //.id(1L)
                 .matchId(1L)
                 .userId(1L)
                 .homeTeamScore(1)

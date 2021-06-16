@@ -1,5 +1,6 @@
 package com.kodilla.backend.dto;
 
+import com.kodilla.backend.domain.PredictionKey;
 import com.kodilla.backend.enums.Winner;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -12,7 +13,7 @@ import lombok.NoArgsConstructor;
 @Builder
 public class PredictionDto {
 
-    private Long id;
+    private PredictionKey id;
     private Long userId;
     private Long matchId;
     private Winner winner;

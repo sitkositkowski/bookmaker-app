@@ -1,6 +1,7 @@
 package com.kodilla.backend.service;
 
 import com.kodilla.backend.domain.Prediction;
+import com.kodilla.backend.domain.PredictionKey;
 import com.kodilla.backend.dto.PredictionDto;
 import com.kodilla.backend.mapper.PredictionMapper;
 import com.kodilla.backend.mapper.UserMapper;
@@ -13,6 +14,7 @@ import com.kodilla.backend.repository.UserRepository;
 import javassist.NotFoundException;
 import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
+import org.springframework.core.ReactiveAdapterRegistry;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
@@ -38,14 +40,22 @@ public class PredictionService {
                 .collect(Collectors.toList());
     }
 
-    public Optional<PredictionDto> getPrediction(final Long id) {
-        return predictionRepository.findById(id)
+    public Optional<PredictionDto> getPrediction(final Long userId, final Long matchId) {
+        return predictionRepository.findById(new PredictionKey(userId, matchId))
                 .map(predictionMapper::mapToDto);
     }
 
     public List<PredictionDto> getPredictionsByUser(final Long id) {
         User user = userRepository.getById(id);
         return predictionRepository.findByUser(user)
+                .stream()
+                .map(predictionMapper::mapToDto)
+                .collect(Collectors.toList());
+    }
+
+    public List<PredictionDto> getPredictionsByMatch(Long id) {
+        Match match = matchRepository.getById(id);
+        return predictionRepository.findByMatch(match)
                 .stream()
                 .map(predictionMapper::mapToDto)
                 .collect(Collectors.toList());
@@ -66,13 +76,16 @@ public class PredictionService {
         } else {
             throw new NotFoundException("Match doesn't exist, please change the match.");
         }
+        prediction.setId(new PredictionKey(predictionDto.getMatchId(), predictionDto.getUserId()));
+        System.out.println(prediction);
         prediction = predictionRepository.save(prediction);
         return predictionMapper.mapToDto(prediction);
     }
 
     @SneakyThrows
     public Optional<PredictionDto> updatePrediction(final PredictionDto predictionDto) {
-        Optional<Prediction> prediction = predictionRepository.findById(predictionDto.getId());
+        PredictionKey predictionKey = new PredictionKey(predictionDto.getUserId(),predictionDto.getMatchId());
+        Optional<Prediction> prediction = predictionRepository.findById(predictionKey);
         if (prediction.isPresent()) {
             prediction.ifPresent(p -> {
                 p.setHomeTeamScore(predictionDto.getHomeTeamScore());
@@ -86,8 +99,9 @@ public class PredictionService {
         return Optional.empty();
     }
 
-    public void deletePrediction (final Long id) {
-        predictionRepository.deleteById(id);
+    public void deletePrediction (final Long userId, final Long matchId) {
+        predictionRepository.deleteById(new PredictionKey(userId, matchId));
     }
+
 
 }

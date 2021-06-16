@@ -1,5 +1,6 @@
 package com.kodilla.backend.controller;
 
+import com.kodilla.backend.domain.PredictionKey;
 import com.kodilla.backend.dto.PredictionDto;
 import com.kodilla.backend.service.PredictionService;
 import lombok.RequiredArgsConstructor;
@@ -22,14 +23,19 @@ public class PredictionController {
         return predictionService.getPredictions();
     }
 
-    @GetMapping("/{id}")
-    public Optional<PredictionDto> getPrediction(@PathVariable Long id) {
-        return predictionService.getPrediction(id);
+    @GetMapping("/{userId}&{matchId}")
+    public Optional<PredictionDto> getPrediction(@PathVariable Long userId, @PathVariable Long matchId) {
+        return predictionService.getPrediction(userId, matchId);
     }
 
     @GetMapping("/user/{id}")
     public List<PredictionDto> getPredictionsByUser(@PathVariable Long id) {
         return predictionService.getPredictionsByUser(id);
+    }
+
+    @GetMapping("/match/{id}")
+    public List<PredictionDto> getPredictionsByMatch(@PathVariable Long id) {
+        return predictionService.getPredictionsByMatch(id);
     }
 
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
@@ -42,8 +48,8 @@ public class PredictionController {
         return predictionService.updatePrediction(predictionDto);
     }
 
-    @DeleteMapping("/{id}")
-    public void deletePrediction(@PathVariable Long id) {
-        predictionService.deletePrediction(id);
+    @DeleteMapping("/{userId}&{matchId}")
+    public void deletePrediction(@PathVariable Long userId, @PathVariable Long matchId) {
+        predictionService.deletePrediction(userId, matchId);
     }
 }

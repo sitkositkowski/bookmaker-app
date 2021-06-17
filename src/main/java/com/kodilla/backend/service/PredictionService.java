@@ -53,7 +53,7 @@ public class PredictionService {
                 .collect(Collectors.toList());
     }
 
-    public List<PredictionDto> getPredictionsByMatch(Long id) {
+    public List<PredictionDto> getPredictionsByMatch(final Long id) {
         Match match = matchRepository.getById(id);
         return predictionRepository.findByMatch(match)
                 .stream()

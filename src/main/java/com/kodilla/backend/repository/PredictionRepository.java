@@ -18,6 +18,13 @@ public interface PredictionRepository extends JpaRepository<Prediction, Predicti
     List<Prediction> findByMatch(Match match);
 
     /*
+    @Query("select p from predictions p " +
+            "where lower(p..firstName) like lower(concat('%', :searchTerm, '%')) " +
+            "or lower(c.lastName) like lower(concat('%', :searchTerm, '%'))")
+
+
+    List<Prediction> search(@Param("searchTerm") String searchTerm);
+
     @Query(nativeQuery = true)
     List<RankingRecord> getRanking();
      */

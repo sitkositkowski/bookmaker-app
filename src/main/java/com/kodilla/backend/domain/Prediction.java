@@ -9,13 +9,17 @@ import lombok.NoArgsConstructor;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 
+
+
 /*
 @NamedNativeQuery(
         name = "Prediction.getRanking",
-        query = "SELECT p.user_id, u.name, p.points FROM predictions AS p JOIN users AS u WHERE p.user_id=u.id",
-        resultClass = RankingRecord.class
+        query = "SELECT u.name as username, sum(p.points) as tpoints FROM predictions AS p JOIN users AS u WHERE p.user_id=u.id",
+        resultClass = RankingRecord2.class
 )
-*/
+
+ */
+
 
 
 
@@ -58,4 +62,5 @@ public class Prediction {
     //@Enumerated(EnumType.STRING)
     //private PredictionResult result;
     private Integer points;
+
 }

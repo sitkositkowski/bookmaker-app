@@ -6,10 +6,7 @@ import com.kodilla.backend.domain.PredictionKey;
 import com.kodilla.backend.domain.User;
 import com.kodilla.backend.dto.UserDto;
 import com.kodilla.backend.enums.Winner;
-import com.kodilla.backend.repository.MatchRepository;
-import com.kodilla.backend.repository.PredictionRepository;
-import com.kodilla.backend.repository.RankingRepository;
-import com.kodilla.backend.repository.UserRepository;
+import com.kodilla.backend.repository.*;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.junit.jupiter.MockitoExtension;
@@ -20,6 +17,7 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 import java.util.List;
 import java.util.Optional;
 import java.util.Random;
+import java.util.Scanner;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.verify;
@@ -39,6 +37,8 @@ public class UserServiceTestSuite {
     private MatchRepository matchRepository;
     @Autowired
     private RankingRepository rankingRepository;
+    @Autowired
+    private PredictionViewRepository predictionViewRepository;
 
     @Test
     void testSaveUser() {
@@ -138,6 +138,11 @@ public class UserServiceTestSuite {
     @Test
     void testRanking() {
         System.out.println(rankingRepository.findAll());
+    }
+
+    @Test
+    void testPredictionView() {
+        System.out.println(predictionViewRepository.findAll());
     }
 
 }

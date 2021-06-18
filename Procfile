@@ -1,1 +1,1 @@
-web: java -jar target/PROJECT_NAME-PROJECT_VERSION.jar $PORT
+web: java -jar build/libs/gradle-getting-started-1.0.jar

@@ -12,8 +12,8 @@ public class DatabaseUpdateScheduler {
     private final MatchService matchService;
     private final Updater updater;
 
-    @Scheduled(fixedDelay = 10000)
-    //@Scheduled(crom = "0 0 10 * * *")
+    //@Scheduled(fixedDelay = 10000)
+    @Scheduled(cron = "0 0 10 * * *")
     public void updateDatabase() {
         updater.updateMatches();
         updater.updatePredictions();

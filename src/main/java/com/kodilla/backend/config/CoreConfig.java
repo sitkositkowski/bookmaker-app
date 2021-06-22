@@ -24,7 +24,7 @@ public class CoreConfig {
     public Docket api() {
         return new Docket(DocumentationType.SWAGGER_2)
                 .select()
-                .apis(RequestHandlerSelectors.basePackage("com.kodilla.controller"))
+                .apis(RequestHandlerSelectors.basePackage("com.kodilla.backend.controller"))
                 .paths(PathSelectors.any())
                 .build();
     }
